@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\File;
 use Rubix\ML\Tokenizers\Sentence;
 use LaravelZero\Framework\Commands\Command;
 
-use function Termwind\render;
-
-class TokenizerCommand extends Command
+class SentenceTokenizerCommand extends Command
 {
     /**
      * The signature of the command.
@@ -22,7 +20,7 @@ class TokenizerCommand extends Command
      *
      * @var string
      */
-    protected $description = 'The Rubix ML Tokenizers segment an input character sequence into tokens. Tokens are usually words, punctuation, numbers, etc.';
+    protected $description = 'This tokenizer matches sentences starting with a letter and ending with a punctuation mark.';
 
     /**
      * Execute the console command.
