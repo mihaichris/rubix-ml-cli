@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
 
-class TokenizerCommandTest extends TestCase
+class SentenceTokenizerCommandTest extends TestCase
 {
     public function test_tokenize_sentence_with_file()
     {
