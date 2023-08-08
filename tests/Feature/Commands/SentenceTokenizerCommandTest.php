@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Commands;
 
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
