@@ -22,7 +22,7 @@ final class WordTokenizerCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'The Word tokenizer uses a regular expression to tokenize the words in a blob of text.';
 
     private string $inputFileContent;
 
