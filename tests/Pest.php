@@ -11,8 +11,14 @@
 |
 */
 
+use Illuminate\Filesystem\Filesystem;
+
 uses(Tests\TestCase::class)->in('Feature');
 
+afterAll(function () {
+    $fileSystem = new Filesystem;
+    $fileSystem->cleanDirectory('tests/output');
+});
 /*
 |--------------------------------------------------------------------------
 | Expectations
