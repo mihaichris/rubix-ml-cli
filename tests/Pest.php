@@ -13,12 +13,12 @@
 
 use Illuminate\Filesystem\Filesystem;
 
-uses(Tests\TestCase::class)->in('Feature');
-
-afterAll(function () {
-    $fileSystem = new Filesystem;
-    $fileSystem->cleanDirectory('tests/output');
-});
+uses(Tests\TestCase::class)->afterAll(function () {
+    $filesForDelete = array_filter(glob("tests/output/*"), function ($file) {
+        return false === strpos($file, '.gitkeep');
+    });
+    (new Filesystem)->delete($filesForDelete);
+})->compact()->in('Feature');
 /*
 |--------------------------------------------------------------------------
 | Expectations
