@@ -40,10 +40,9 @@ final class NGramTokenizerCommand extends Command
             $this->inputFileContent = File::get($this->argument('input-file'));
         });
         $this->task('Decomposing sentences 🔨', function (): void {
-            $tokenizer = new NGram($this->argument('min'), $this->argument('max'));
-            $this->words = $tokenizer->tokenize($this->inputFileContent);
+            $nGram = new NGram((int)$this->option('min'), (int)$this->option('max'));
+            $this->words = $nGram->tokenize($this->inputFileContent);
         }, 'Processing...');
-
         $this->task('Writing to the output file ✍️', function (): void {
             File::put($this->argument('output-file'), implode("\n", $this->words));
         });
