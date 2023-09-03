@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 use Rubix\ML\Tokenizers\NGram;
 
-class NGramTokenizerCommand extends Command
+final class NGramTokenizerCommand extends Command
 {
     /**
      * The signature of the command.
