@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Datasets\TrainingSplitter;
 use Illuminate\Support\ServiceProvider;
 
 final class AppServiceProvider extends ServiceProvider
@@ -11,7 +12,6 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
     }
 
     /**
@@ -19,6 +19,6 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(TrainingSplitter::class);
     }
 }
