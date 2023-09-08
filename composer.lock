@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49b34635b5bbb1a79a800974c7bc1677",
+    "content-hash": "4db1bd70059905b63203d29dec8e0e06",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1726,7 +1726,7 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v10.21.0",
+            "version": "v10.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
