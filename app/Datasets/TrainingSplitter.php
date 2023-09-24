@@ -16,6 +16,7 @@ class TrainingSplitter
         if ($randomize) {
             $dataset = $dataset->randomize();
         }
+
         return $dataset->split($ratio);
     }
 }
