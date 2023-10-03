@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 use Rubix\ML\Tokenizers\Whitespace;
 
-class WhitespaceTokenizerCommand extends Command
+final class WhitespaceTokenizerCommand extends Command
 {
     /**
      * The signature of the command.
@@ -33,7 +33,6 @@ class WhitespaceTokenizerCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
     public function handle(): void
     {
@@ -41,9 +40,9 @@ class WhitespaceTokenizerCommand extends Command
         $this->task('Reading the input file 📖', function (): void {
             $this->inputFileContent = File::get($this->argument('input-file'));
         });
-        $this->task("Splitting words by '$delimiter' 🔨", function (): void {
-            $word = new Whitespace($this->option('delimiter'));
-            $this->words = $word->tokenize($this->inputFileContent);
+        $this->task(sprintf('Splitting words by \'%s\' 🔨', $delimiter), function (): void {
+            $whitespace = new Whitespace((string)$this->option('delimiter'));
+            $this->words = $whitespace->tokenize($this->inputFileContent);
         }, 'Processing...');
         $this->task('Writing to the output file ✍️', function (): void {
             File::put($this->argument('output-file'), implode("\n", $this->words));
