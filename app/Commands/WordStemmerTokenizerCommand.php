@@ -33,7 +33,6 @@ final class WordStemmerTokenizerCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
     public function handle(): void
     {
@@ -41,8 +40,8 @@ final class WordStemmerTokenizerCommand extends Command
             $this->inputFileContent = File::get($this->argument('input-file'));
         });
         $this->task('Stemming the text 🔨', function (): void {
-            $word = new WordStemmer($this->option('language'));
-            $this->words = $word->tokenize($this->inputFileContent);
+            $wordStemmer = new WordStemmer((string)$this->option('language'));
+            $this->words = $wordStemmer->tokenize($this->inputFileContent);
         }, 'Processing...');
         $this->task('Writing to the output file ✍️', function (): void {
             File::put($this->argument('output-file'), implode("\n", $this->words));
