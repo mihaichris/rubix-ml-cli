@@ -1,41 +1,29 @@
 <?php
 
-namespace Tests\Feature\Commands;
-
 use Illuminate\Support\Facades\File;
-use Tests\TestCase;
 
-class WordTokenizerCommandTest extends TestCase
-{
-    public function test_tokenize_word_command_will_return_ok()
-    {
-        //TODO: Cleanup files after each test
-        $this->artisan(
-            'tokenizer:word',
-            [
-                'input-file' => 'tests\fixture\en-tokenize-word.input',
-                'output-file' => 'test_tokenize_word_files.output'
-            ]
-        )->assertOk();
-    }
+test('tokenize command will return ok', function () {
+    $this->artisan(
+        'tokenizer:word',
+        [
+            'input-file' => 'tests\fixture\en-tokenize-word.input',
+            'output-file' => 'tests\output\test_tokenize_command_will_return_ok.output'
+        ]
+    )->assertOk();
+});
 
-    /** @depends test_tokenize_word_command_will_return_ok */
-    public function test_tokenize_word_files()
-    {
-        $expected = File::get('tests\fixture\en-tokenize-word.output');
-        $actual = File::get('test_tokenize_word_files.output');
-        $this->assertSame($expected, $actual);
-    }
+test('tokenize files', function () {
+    $expected = File::get('tests\fixture\en-tokenize-word.output');
+    $actual = File::get('tests\output\test_tokenize_command_will_return_ok.output');
+    expect($actual)->toBe($expected);
+})->depends('tokenize command will return ok');
 
-    public function test_tokenize_word_without_input_file()
-    {
-        $this->expectExceptionMessage('Not enough arguments (missing: "input-file").');
-        $this->artisan('tokenizer:word', ['output-file' => 'test_tokenize_word_with_file.output']);
-    }
+test('tokenize without input file', function () {
+    $this->expectExceptionMessage('Not enough arguments (missing: "input-file").');
+    $this->artisan('tokenizer:word', ['output-file' => 'test_tokenize_word_with_file.output']);
+});
 
-    public function test_tokenize_word_without_output_file()
-    {
-        $this->expectExceptionMessage('Not enough arguments (missing: "output-file").');
-        $this->artisan('tokenizer:word', ['input-file' => 'tests\fixture\en-tokenize-word.input']);
-    }
-}
+test('tokenize without output file', function () {
+    $this->expectExceptionMessage('Not enough arguments (missing: "output-file").');
+    $this->artisan('tokenizer:word', ['input-file' => 'tests\fixture\en-tokenize-word.input']);
+});
