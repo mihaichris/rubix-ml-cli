@@ -40,7 +40,7 @@ class HousePricePredictorCommand extends Command
     public function handle()
     {
         $logger = new Screen();
-        $extractor = new ColumnPicker(new CSV('dataset.csv', true), [
+        $extractor = new ColumnPicker(new CSV('tests\fixture\house-price-labeled.csv', true), [
             'MSSubClass', 'MSZoning', 'LotFrontage', 'LotArea', 'Street', 'Alley',
             'LotShape', 'LandContour', 'Utilities', 'LotConfig', 'LandSlope',
             'Neighborhood', 'Condition1', 'Condition2', 'BldgType', 'HouseStyle',
