@@ -17,7 +17,7 @@ uses(Tests\TestCase::class)->afterAll(function () {
     $filesForDelete = array_filter(glob("tests/output/*"), function ($file) {
         return false === strpos($file, '.gitkeep');
     });
-    (new Filesystem)->delete($filesForDelete);
+    (new Filesystem())->delete($filesForDelete);
 })->compact()->in('Feature');
 /*
 |--------------------------------------------------------------------------
