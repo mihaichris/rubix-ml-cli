@@ -56,7 +56,6 @@ class HousePricePredictorLoaderCommand extends Command
             'PoolQC', 'Fence', 'MiscFeature', 'MiscVal', 'MoSold', 'YrSold',
             'SaleType', 'SaleCondition',
         ]);
-
         $dataset = Unlabeled::fromIterator($extractor)
             ->apply(new NumericStringConverter());
 
