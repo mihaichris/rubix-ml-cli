@@ -16,7 +16,7 @@ use Rubix\ML\Transformers\NumericStringConverter;
 
 use function Laravel\Prompts\confirm;
 
-class HousePricePredictorCommand extends Command
+final class HousePricePredictorCommand extends Command
 {
     /**
      * The signature of the command.
