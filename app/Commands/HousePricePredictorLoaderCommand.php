@@ -13,7 +13,7 @@ use Rubix\ML\Transformers\NumericStringConverter;
 
 use function Rubix\ML\array_transpose;
 
-class HousePricePredictorLoaderCommand extends Command
+final class HousePricePredictorLoaderCommand extends Command
 {
     /**
      * The signature of the command.
