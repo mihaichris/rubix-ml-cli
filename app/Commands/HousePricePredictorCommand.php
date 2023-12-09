@@ -39,7 +39,7 @@ final class HousePricePredictorCommand extends Command
      */
     public function handle(): void
     {
-        $logger = new Screen();
+        $screen = new Screen();
         $extractor = new ColumnPicker(new CSV('tests\fixture\house-price-labeled.csv', true), [
             'MSSubClass', 'MSZoning', 'LotFrontage', 'LotArea', 'Street', 'Alley',
             'LotShape', 'LandContour', 'Utilities', 'LotConfig', 'LandSlope',
@@ -59,29 +59,29 @@ final class HousePricePredictorCommand extends Command
             'SaleType', 'SaleCondition', 'SalePrice',
         ]);
 
-        $dataset = Labeled::fromIterator($extractor);
+        $labeled = Labeled::fromIterator($extractor);
 
-        $dataset->apply(new NumericStringConverter())
+        $labeled->apply(new NumericStringConverter())
             ->apply(new MissingDataImputer())
             ->transformLabels('intval');
 
-        $estimator = new PersistentModel(
+        $persistentModel = new PersistentModel(
             new GradientBoost(new RegressionTree(4), 0.1),
             new Filesystem('housing.rbx', true)
         );
 
-        $estimator->setLogger($logger);
+        $persistentModel->setLogger($screen);
 
-        $estimator->train($dataset);
+        $persistentModel->train($labeled);
 
         $extractor = new CSV('progress.csv', true);
 
-        $extractor->export($estimator->steps());
+        $extractor->export($persistentModel->steps());
 
-        $logger->info('Progress saved to progress.csv');
+        $screen->info('Progress saved to progress.csv');
 
         if (confirm("Save this model?", default: false)) {
-            $estimator->save();
+            $persistentModel->save();
         }
     }
 }
