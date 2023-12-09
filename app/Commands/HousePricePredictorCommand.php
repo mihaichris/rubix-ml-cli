@@ -37,7 +37,7 @@ final class HousePricePredictorCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $logger = new Screen();
         $extractor = new ColumnPicker(new CSV('tests\fixture\house-price-labeled.csv', true), [
