@@ -37,7 +37,7 @@ final class HousePricePredictorLoaderCommand extends Command
      */
     public function handle(): void
     {
-        $logger = new Screen();
+        $screen = new Screen();
         $extractor = new ColumnPicker(new CSV('dataset.csv', true), [
             'MSSubClass', 'MSZoning', 'LotFrontage', 'LotArea', 'Street', 'Alley',
             'LotShape', 'LandContour', 'Utilities', 'LotConfig', 'LandSlope',
@@ -56,14 +56,14 @@ final class HousePricePredictorLoaderCommand extends Command
             'PoolQC', 'Fence', 'MiscFeature', 'MiscVal', 'MoSold', 'YrSold',
             'SaleType', 'SaleCondition',
         ]);
-        $dataset = Unlabeled::fromIterator($extractor)
+        $unlabeled = Unlabeled::fromIterator($extractor)
             ->apply(new NumericStringConverter());
 
-        $estimator = PersistentModel::load(new Filesystem('housing.rbx'));
+        $persistentModel = PersistentModel::load(new Filesystem('housing.rbx'));
 
-        $logger->info('Making predictions');
+        $screen->info('Making predictions');
 
-        $predictions = $estimator->predict($dataset);
+        $predictions = $persistentModel->predict($unlabeled);
 
         $extractor = new ColumnPicker(new CSV('dataset.csv', true), ['Id']);
 
@@ -76,6 +76,6 @@ final class HousePricePredictorLoaderCommand extends Command
 
         $extractor->export(array_transpose([$ids, $predictions]));
 
-        $logger->info('Predictions saved to predictions.csv');
+        $screen->info('Predictions saved to predictions.csv');
     }
 }
