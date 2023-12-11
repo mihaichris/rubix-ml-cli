@@ -30,30 +30,30 @@ final class IrisCommand extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $logger = new Screen();
+        $screen = new Screen();
 
-        $logger->info('Loading data into memory');
+        $screen->info('Loading data into memory');
 
-        $training = Labeled::fromIterator(new NDJSON('tests\fixture\iris-dataset.ndjson'));
+        $labeled = Labeled::fromIterator(new NDJSON('tests\fixture\iris-dataset.ndjson'));
 
-        $testing = $training->randomize()->take(10);
+        $testing = $labeled->randomize()->take(10);
 
-        $estimator = new KNearestNeighbors(5);
+        $kNearestNeighbors = new KNearestNeighbors(5);
 
-        $logger->info('Training');
+        $screen->info('Training');
 
-        $estimator->train($training);
+        $kNearestNeighbors->train($labeled);
 
-        $logger->info('Making predictions');
+        $screen->info('Making predictions');
 
-        $predictions = $estimator->predict($testing);
+        $predictions = $kNearestNeighbors->predict($testing);
 
-        $metric = new Accuracy();
+        $accuracy = new Accuracy();
 
-        $score = $metric->score($predictions, $testing->labels());
+        $score = $accuracy->score($predictions, $testing->labels());
 
-        $logger->info("Accuracy is $score");
+        $screen->info(sprintf('Accuracy is %s', $score));
     }
 }
