@@ -10,6 +10,7 @@ use Rubix\ML\Extractors\NDJSON;
 use Rubix\ML\Loggers\Screen;
 
 class IrisCommand extends Command
+final class IrisCommand extends Command
 {
     /**
      * The signature of the command.
