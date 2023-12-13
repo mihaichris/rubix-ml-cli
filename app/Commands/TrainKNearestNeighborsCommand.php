@@ -27,28 +27,28 @@ final class TrainKNearestNeighborsCommand extends Command
 
     public function handle(TrainingSplitter $trainingSplitter, ModelPersister $modelPersister): void
     {
-        $dataset = Labeled::fromIterator(new CSV($this->argument('dataset'), true));
-        [$training, $testing] = $trainingSplitter->trainTestSplit($dataset, 0.8);
+        $labeled = Labeled::fromIterator(new CSV($this->argument('dataset'), true));
+        [$training, $testing] = $trainingSplitter->trainTestSplit($labeled, 0.8);
         $training->apply(new NumericStringConverter());
         $testing->apply(new NumericStringConverter());
-        /** @var Euclidean */
         $kernel = (new ReflectionClass('Rubix\ML\Kernels\Distance' . '\\' . $this->option('kernel')))->newInstance();
-        $estimator = new KNearestNeighbors($this->option('k'), $this->option('weighted'), $kernel);
-        $estimator->train($training);
-        $predictions = $estimator->predict($testing);
+        $kNearestNeighbors = new KNearestNeighbors($this->option('k'), $this->option('weighted'), $kernel);
+        $kNearestNeighbors->train($training);
+
+        $predictions = $kNearestNeighbors->predict($testing);
         $accuracy = new Accuracy();
         $accuracyScore = $accuracy->score($predictions, $testing->labels());
 
         render(<<<HTML
             <div>
                 <div class="px-1 bg-green-600">Metrics results</div>
-                <em class="ml-1">Accuracy is $accuracyScore</em>
+                <em class="ml-1">Accuracy is {$accuracyScore}</em>
             </div>
         HTML);
 
         $confirmSaveModel = confirm(label: "Save model?", default: false, yes: "Yes", no: "No");
         if ($confirmSaveModel) {
-            $modelPersister->persist($estimator);
+            $modelPersister->persist($kNearestNeighbors);
         }
     }
 }
