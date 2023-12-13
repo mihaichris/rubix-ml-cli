@@ -10,7 +10,6 @@ use Rubix\ML\Classifiers\KNearestNeighbors;
 use Rubix\ML\CrossValidation\Metrics\Accuracy;
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Extractors\CSV;
-use Rubix\ML\Kernels\Distance\Euclidean;
 use Rubix\ML\Transformers\NumericStringConverter;
 
 use function Laravel\Prompts\confirm;
