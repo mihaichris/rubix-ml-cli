@@ -15,7 +15,7 @@ use Rubix\ML\Transformers\NumericStringConverter;
 use function Laravel\Prompts\confirm;
 use function Termwind\render;
 
-class TrainKNearestNeighborsCommand extends Command
+final class TrainKNearestNeighborsCommand extends Command
 {
     protected $signature = 'train:KNearestNeighbors
                             {dataset : Dataset file as CSV (required)}
