@@ -6,7 +6,7 @@ namespace App\Datasets;
 
 use Rubix\ML\Datasets\Dataset;
 
-class TrainingSplitter
+final class TrainingSplitter
 {
     /**
      * @return array{Dataset, Dataset}
