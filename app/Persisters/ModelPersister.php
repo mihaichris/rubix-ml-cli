@@ -11,9 +11,9 @@ use Rubix\ML\Serializers\RBX;
 
 final class ModelPersister
 {
-    public function persist(Learner $model): void
+    public function persist(Learner $learner): void
     {
-        $estimator = new PersistentModel($model, new Filesystem('model.rbx'), new RBX());
-        $estimator->save();
+        $persistentModel = new PersistentModel($learner, new Filesystem('model.rbx'), new RBX());
+        $persistentModel->save();
     }
 }
