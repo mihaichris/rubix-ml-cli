@@ -9,7 +9,7 @@ use Rubix\ML\PersistentModel;
 use Rubix\ML\Persisters\Filesystem;
 use Rubix\ML\Serializers\RBX;
 
-class ModelPersister
+final class ModelPersister
 {
     public function persist(Learner $model): void
     {
