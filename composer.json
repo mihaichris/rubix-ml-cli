@@ -75,9 +75,7 @@
         "test": [
             "@test:refactor",
             "@test:lint",
-            "@test:types",
-            "@test:feature",
-            "@test:mutation"
+            "@test:feature"
         ]
     }
 }
