@@ -35,11 +35,9 @@ final class HousePricePredictorCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
     public function handle(): void
     {
-        $screen = new Screen();
         $extractor = new ColumnPicker(new CSV('tests\fixture\house-price-labeled.csv', true), [
             'MSSubClass', 'MSZoning', 'LotFrontage', 'LotArea', 'Street', 'Alley',
             'LotShape', 'LandContour', 'Utilities', 'LotConfig', 'LandSlope',
@@ -70,7 +68,7 @@ final class HousePricePredictorCommand extends Command
             new Filesystem('housing.rbx', true)
         );
 
-        $persistentModel->setLogger($screen);
+        $persistentModel->setLogger(new Screen());
 
         $persistentModel->train($labeled);
 
