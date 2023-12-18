@@ -51,7 +51,10 @@ final class IrisCommand extends Command
 
         $accuracy = new Accuracy();
 
-        $score = $accuracy->score($predictions, $testing->labels());
+
+        /** @var array<int, int|string> $labels */
+        $labels = $testing->labels();
+        $score = $accuracy->score($predictions, $labels);
 
         $screen->info(sprintf('Accuracy is %s', $score));
     }
