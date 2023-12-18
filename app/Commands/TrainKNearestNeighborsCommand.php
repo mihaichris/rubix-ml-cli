@@ -28,6 +28,10 @@ final class TrainKNearestNeighborsCommand extends Command
     public function handle(TrainingSplitter $trainingSplitter, ModelPersister $modelPersister): void
     {
         $labeled = Labeled::fromIterator(new CSV($this->argument('dataset'), true));
+        /**
+         * @var \Rubix\ML\Datasets\Labeled $training
+         * @var \Rubix\ML\Datasets\Labeled $testing
+         */
         [$training, $testing] = $trainingSplitter->trainTestSplit($labeled, 0.8);
         $training->apply(new NumericStringConverter());
         $testing->apply(new NumericStringConverter());
